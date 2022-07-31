@@ -1,45 +1,34 @@
 from time import sleep
-import winsound
+import winsound as sound
 
 freq = 1000
 dur = 2000
 
-unities = input("In which unities do you want to measure your study? (hours, minutes, seconds) ")
+unity_times = ["hour", "min", "sec"]
 
-if unities == "hours" or unities == "minutes" or unities == "seconds":
-    
-    time = input("How many time in "+unities+" do you want to study? ")
+unities = input("In which unities do you want to measure your study? (hour, min, sec): ")
 
-    time = int(time)
+if unities.lower() in unity_times:
 
-    decision = input("Do you want to start studying now? Y/N ")
+    time = int(input(f"How many {unities} do you want to study? "))
+    decision = input("Do you want to start studying now? (y/n): ")
 
-    if unities == "hours" or unities == "Hours" and  decision == "Y":
+    sleep_time = {"hour": 3600, "min": 60, "sec": 1}
+
+    if decision.lower() == "y":
         while time > 0:
             print(time)
             time -= 1
-            sleep(3600)
-        print("Finished hope u enjoyed your study!")
-        winsound.Beep(freq, dur)
-    elif unities == "minutes" or unities == "Minutes" and  decision == "Y":
-        while time > 0:
-            print(time)
-            time -= 1
-            sleep(60)
-        print("Finished hope u enjoyed your study!")
-        winsound.Beep(freq, dur)
-    elif unities == "seconds" or unities == "Seconds" and  decision == "Y":
-        while time > 0:
-            print(time)
-            time -= 1
-            sleep(1)
-        print("Finished hope u enjoyed your study!")
-        winsound.Beep(freq, dur)
-    elif decision == "N" or decision == "n":
+            sleep(sleep_time[unities.lower()])
+        print("Finished, hope u enjoyed your study!")
+        sound.Beep(freq, dur)
+    elif decision.lower() == "n":
         print("Okay, come back later :)")
+    else:
+        print("Please input using (Y/N).")
 else:
-    print("Please input a correct unity of time")
-    
+    print("Please input a correct unity of time (hour, min, sec).")
+
 
 
 
